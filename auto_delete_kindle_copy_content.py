@@ -26,10 +26,12 @@ def set_text(info):
 pattern = re.compile("\r\n\r\n杨保华.*Kindle 版本.")
 
 while True:
-    s = get_text()
-    if s:
-        s = re.sub(pattern, "", s)
-        s = s.replace(" ", "")
-        set_text(s)
-    print(s)
-    time.sleep(1)
+	try:
+		s = get_text()
+		if s:
+			s = re.sub(pattern, "", s)
+			s = s.replace(" ", "")
+			set_text(s)
+		print(s)
+	finally:
+		time.sleep(1)
