@@ -23,15 +23,16 @@ def set_text(info):
     wincld.CloseClipboard()
 
 
-pattern = re.compile("\r\n\r\n杨保华.*Kindle 版本.")
+pattern = re.compile(r"\r\n\r\n杨保华.*Kindle 版本.")
+pattern2 = re.compile(r"([^\x00-\xff])\s+([^\x00-\xff])")
 
 while True:
-	try:
-		s = get_text()
-		if s:
-			s = re.sub(pattern, "", s)
-			s = s.replace(" ", "")
-			set_text(s)
-		print(s)
-	finally:
-		time.sleep(1)
+    try:
+        s = get_text()
+        if s:
+            s = re.sub(pattern, "", s)
+            s = re.sub(pattern2, lambda x: x.group(1) + x.group(2), s)
+            set_text(s)
+        print(s)
+    finally:
+        time.sleep(1)
