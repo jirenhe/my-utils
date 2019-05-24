@@ -30,6 +30,7 @@ pattern3 = re.compile(r"([/:.\\<[_-])\s+")
 pattern4 = re.compile(r"(?<!\s)(\[[a-zA-Z]+?.*?\])")
 pattern5 = re.compile(r"([A-Za-z])(<.*?>)")
 pattern6 = re.compile(r"([a-zA-Z])(-+)")
+pattern7 = re.compile(r"-([^\x00-\xff])")
 
 while True:
     try:
@@ -41,10 +42,11 @@ while True:
             s = re.sub(pattern4, lambda x: " " + x.group(1), s)
             s = re.sub(pattern5, lambda x: x.group(1) + " " + x.group(2), s)
             s = re.sub(pattern6, lambda x: x.group(1) + " " + x.group(2), s)
+            s = re.sub(pattern7, lambda x: "- "+ x.group(1), s)
             set_text(s)
         print(s)
     except Exception as e:
         traceback.print_exc()
         pass
     finally:
-        time.sleep(1)
+        time.sleep(0.7)
